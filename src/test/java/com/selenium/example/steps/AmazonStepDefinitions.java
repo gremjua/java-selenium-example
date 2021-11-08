@@ -1,6 +1,8 @@
 package com.selenium.example.steps;
 import org.junit.Assert;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -9,9 +11,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Date;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -108,8 +112,13 @@ public class AmazonStepDefinitions {
         Assert.assertEquals(productPrice*productQuantity, cartPage.getSubtotal(), 0.0);
     }
     @After()
-    public void closeBrowser()
+    public void tear_down(Scenario scenario)
     {
+        if (scenario.isFailed()) {
+            final byte[] screenshot = ((TakesScreenshot) driver)
+                        .getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", "failure" + new java.util.Date().toString()); //stick it in the report
+    }
         driver.quit();
     }
 }

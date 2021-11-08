@@ -62,6 +62,7 @@ services:
     container_name: tests
     environment:
       - BASE_URL=http://selenium-hub:4444/wd/hub
+      - BROWSER=chrome
     command: mvn test
     networks:
       testsnw: {}

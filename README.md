@@ -10,7 +10,7 @@
 ```
 This will execute the [docker-compose.yml](./docker-compose.yml) file, which will spin up [Selenium Grid](https://www.selenium.dev/documentation/grid/) with containers for Chrome, Firefox and Edge test executions. A `tests` container will also be spun up containing Maven, Java 11, and all needed dependencies to run the tests. After tests are executed, an HTML report [target/cucumber-reports.html](target/cucumber-reports.html) will be generated at the root of the project.
 
-By default, tests will run against the Chrome node, but this can be changed with the `BROWSER` environment variable (accepts `chrome`, `firefox`, and `edge`).
+By default, tests will run against the Chrome node, but this can be changed with the `BROWSER` environment variable (accepts `chrome`, `firefox`, and `edge`) in the [docker-compose.yml](docker-compose.yml) file under the `tests` service definition.
 
 ## Details
 
